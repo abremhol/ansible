@@ -5,7 +5,7 @@
 
 - name: Change shell to zsh
   become: true
-  shell: chsh -s $(which zsh) $(whoami)
+  shell: chsh -s $(which zsh) adam
   tags: *tags_for_zsh_tasks
 
 - name: Check that the somefile.conf exists
