@@ -1,0 +1,44 @@
+- name: Install nodejs and npm
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+  tags:
+    - install
+    - node
+
+- name: npmjs prefix
+  shell: mkdir -p ~/.local/.npm-global
+  tags:
+  - install
+  - node
+
+- name: add npmjs to path
+  shell: PATH=~/.local/.npm-global/bin:$PATH
+  tags:
+  - install
+  - node
+
+- name: npmjs global settings
+  shell: npm config set prefix '~/.local/.npm-global'
+  tags:
+  - install
+  - node
+
+- name: Install N
+  environment:
+    PATH: '/home/adam/.local/.npm-global/bin:{{ ansible_env.PATH }}'
+  npm:
+    name: n
+    global: yes
+  tags:
+    - install
+    - node
+
+- name: Install correct version of Node
+  environment:
+    PATH: '/home/adam/.local/.npm-global/bin:{{ ansible_env.PATH }}'
+  shell: n 14
+  become: true
+  tags:
+    - install
+    - node

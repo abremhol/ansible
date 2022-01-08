@@ -1,0 +1,38 @@
+- name: Install ZSH
+  apt: name=zsh
+  become: true
+  tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
+
+- name: Change shell to zsh
+  become: true
+  shell: chsh -s $(which zsh) $(whoami)
+  tags: *tags_for_zsh_tasks
+
+- name: Check that the somefile.conf exists
+  stat:
+    path: /home/adam/.oh-my-zsh
+  register: oh_my_stats
+  tags: *tags_for_zsh_tasks
+
+- name: Oh-My-Zsh
+  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+  tags: *tags_for_zsh_tasks
+  when: oh_my_stats.stat.exists == False
+  become_user: adam
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+  tags: *tags_for_zsh_tasks
+
+- name: Check if .zshrc exists
+  stat:
+    path: /home/adam/.zshrc
+  register: zshrc
+  tags: *tags_for_zsh_tasks
+
+- name: rm .zshrc to be able to stow new later
+  shell: rm /home/adam/.zshrc
+  tags: *tags_for_zsh_tasks
+  when: zshrc.stat.exists
