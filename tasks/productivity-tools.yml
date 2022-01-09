@@ -1,7 +1,13 @@
 - name: Install packages
   become: true
   apt:
-    name: [ "tmux", "wireshark", "fzf", "xclip", "tldr", "ripgrep"]
+    name: [ "tmux", "wireshark", "fzf", "tldr", "ripgrep"]
+  tags:
+    - install
+    - productivity
+
+- name: Install tpm
+  shell: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   tags:
     - install
     - productivity
