@@ -1,0 +1,5 @@
+- name: npmjs prefix
+  shell: npm install -g @angular/cli
+  tags:
+  - install
+  - angular
