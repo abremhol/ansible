@@ -28,3 +28,38 @@
   tags:
     - install
     - dotnet
+
+- name: Install gnupg and ca-certificates
+  become: true
+  apt:
+    name: ["gnupg", "ca-certificates"]
+    update_cache: yes
+  tags:
+    - install
+    - mono
+
+- name: Add an apt key by id from a keyserver
+  become: true
+  ansible.builtin.apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  tags:
+    - install
+    - mono
+
+- name: Add source
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://download.mono-project.com/repo/ubuntu stable-focal main
+  tags:
+  - install
+  - mono
+
+- name: Install mono
+  become: true
+  apt:
+    name: ["mono-devel"]
+    update_cache: yes
+  tags:
+    - install
+    - mono

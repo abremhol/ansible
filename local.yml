@@ -25,3 +25,4 @@
     - include: tasks/dotfiles.yml
     - include: tasks/productivity-tools.yml
     - include: tasks/browsers.yml
+    - include: tasks/angular.yml
