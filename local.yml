@@ -24,3 +24,4 @@
     - include: tasks/zsh-setup.yml
     - include: tasks/dotfiles.yml
     - include: tasks/productivity-tools.yml
+    - include: tasks/browsers.yml
