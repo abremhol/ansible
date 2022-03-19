@@ -1,0 +1,22 @@
+- name: Install PPA
+  become: true
+  shell: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+  tags:
+  - install
+  - chrome
+
+- name: Setup Repo
+  become: true
+  shell: sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+  tags:
+  - install
+  - chrome
+
+- name: Install Chrome
+  become: true
+  apt:
+    name: ["google-chrome-stable"]
+    update_cache: yes
+  tags:
+    - install
+    - chrome
