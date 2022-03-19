@@ -63,3 +63,10 @@
   tags:
     - install
     - mono
+
+- name: Install artifact credential provider
+  shell: sh -c "$(curl -fsSL https://aka.ms/install-artifacts-credprovider.sh)"
+  tags:
+  - install
+  - dotnet
+  - nuget
