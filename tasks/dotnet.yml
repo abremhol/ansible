@@ -38,31 +38,14 @@
     - install
     - mono
 
-- name: Add an apt key by id from a keyserver
-  become: true
-  ansible.builtin.apt_key:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-  tags:
-    - install
-    - mono
-
-- name: Add source
-  become: true
-  ansible.builtin.apt_repository:
-    repo: deb https://download.mono-project.com/repo/ubuntu stable-focal main
-  tags:
-  - install
-  - mono
-
-- name: Install mono
+- name: Install uncrustify
   become: true
   apt:
-    name: ["mono-devel"]
+    name: ["uncrustify"]
     update_cache: yes
   tags:
     - install
-    - mono
+    - dotnet
 
 - name: Install artifact credential provider
   shell: sh -c "$(curl -fsSL https://aka.ms/install-artifacts-credprovider.sh)"
