@@ -38,15 +38,6 @@
     - install
     - mono
 
-- name: Install uncrustify
-  become: true
-  apt:
-    name: ["uncrustify"]
-    update_cache: yes
-  tags:
-    - install
-    - dotnet
-
 - name: Install artifact credential provider
   shell: sh -c "$(curl -fsSL https://aka.ms/install-artifacts-credprovider.sh)"
   tags:
