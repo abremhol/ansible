@@ -1,0 +1,42 @@
+- name: Get Microsoft Azure function key
+  shell: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  tags:
+  - install
+  - azure
+  - func
+
+- name: Move gpg to trusted
+  become: true
+  shell: mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  tags:
+  - install
+  - azure
+  - func
+
+- name: Set up the APT source list before doing an APT update.
+  become: true
+  shell: sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
+  tags:
+  - install
+  - azure
+  - func
+
+- name: Install az function core tools
+  become: true
+  apt:
+    name: ["azure-functions-core-tools-4"]
+    update_cache: yes
+  tags:
+    - install
+    - azure
+    - func
+
+- name: az cli
+  become: true
+  shell: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+  tags:
+  - install
+  - azure
+  - cli
+
+

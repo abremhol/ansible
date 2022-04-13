@@ -19,6 +19,7 @@
     - include: tasks/core-setup.yml
     - include: tasks/node-setup.yml
     - include: tasks/dotnet.yml
+    - include: tasks/azure.yml
     - include: tasks/npm-packages.yml
     - include: tasks/nvim-setup.yml
     - include: tasks/zsh-setup.yml
