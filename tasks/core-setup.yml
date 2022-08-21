@@ -19,7 +19,7 @@
 - name: Install System Packages 3 (the rest)
   become: true
   apt:
-    name: [ "curl", "htop", "lsof", "golang", "ccache", "ninja-build", "python3-pip", "dconf-editor", "moreutils", "fd-find", "clangd"]
+    name: [ "curl", "wget", "htop", "lsof", "golang-go", "ccache", "ninja-build", "python3-pip", "dconf-editor", "moreutils", "fd-find", "clangd"]
   tags:
     - install
     - core
@@ -27,7 +27,7 @@
 - name: Install Clang
   become: true
   apt:
-    name: ["clang", "clang-11", "clang-12", "clangd", "clangd-10", "clangd-11", "clangd-12"]
+    name: ["clang", "clang-11", "clang-12", "clangd", "clangd-11", "clangd-12", "clangd-13", "clangd-14"]
   tags:
     - install
     - neovim
