@@ -33,3 +33,10 @@
   tags:
     - install
     - node
+- name: Install Prettierd
+  npm:
+    name: prettierd
+    global: yes
+  tags:
+    - install
+    - node
