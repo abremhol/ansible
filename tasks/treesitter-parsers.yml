@@ -1,0 +1,13 @@
+- name: Clone treesitter-bicep
+  ansible.builtin.git:
+    repo: 'git@github.com:Sjord/tree-sitter-bicep.git'
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/tree-sitter-bicep"
+  tags:
+    - install
+    - treesitter-parser
+- name: Treesitter generate
+  shell: cd {{ lookup('env', 'HOME') }}/.local/share/tree-sitter-bicep && tree-sitter generate 
+  become: false
+  tags:
+    - install
+    - treesitter-parser
