@@ -35,7 +35,7 @@
     - node
 - name: Install Prettierd
   npm:
-    name: prettierd
+    name: "@fsouza/prettierd"
     global: yes
   tags:
     - install

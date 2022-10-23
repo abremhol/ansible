@@ -1,11 +1,25 @@
-- name: Install dotnet
-  become: true
-  apt:
-    name: ["dotnet6"]
-    update_cache: yes
+- name: download dotnet tools
+  shell: wget -P {{ lookup('env', 'HOME') }}/.local/bin https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
   tags:
-    - install
-    - dotnet
+  - install
+  - dotnet
+  - dotnet-tools
+
+- name: install latest dotnet
+  script:
+    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh"
+  tags:
+  - install
+  - dotnet
+  - dotnet-tools
+
+- name: install latest dotnet
+  script:
+    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh -v 3.1.424"
+  tags:
+  - install
+  - dotnet
+  - dotnet-tools
 
 - name: Install gnupg and ca-certificates
   become: true
