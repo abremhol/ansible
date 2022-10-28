@@ -3,6 +3,8 @@
     source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
     personal: "{{ lookup('env', 'HOME') }}/personal"
+    source_ssh_config: "./.ssh/config"
+    dest_ssh_config: "{{ lookup('env', 'HOME') }}/.ssh/config"
   pre_tasks:
   - name: Update Apt
     become: true
@@ -28,3 +30,4 @@
     - import_tasks: tasks/browsers.yml
     - import_tasks: tasks/angular.yml
     - import_tasks: tasks/debuggers.yml
+    - import_tasks: tasks/openssl.yml

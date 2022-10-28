@@ -1,0 +1,16 @@
+- name: Download openssl 1.0.01
+  shell: cd {{ lookup('env', 'HOME') }} && wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb
+  tags:
+  - openssl
+
+- name: Install openssl 1.0.01 
+  shell: cd {{ lookup('env', 'HOME') }} && dpkg -i libssl1.1_1.1.1-1ubuntu2.1~18.04.20_amd64.deb
+  become: true
+  tags:
+  - openssl
+
+- name: Fix openssl_conf for Azure Credential provider
+  shell: sed -i 's/openssl_conf = openssl_init/#openssl_conf = openssl_init/g' /etc/ssl/openssl.cnf
+  become: true
+  tags:
+  - openssl

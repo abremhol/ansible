@@ -7,6 +7,7 @@
     - dotfiles
     - install
     - ssh
+
 - name: Install ssh key
   copy:
     src: "{{ source_key }}"
@@ -16,11 +17,20 @@
     - dotfiles
     - install
     - ssh
+
 - name: Install ssh key public
   copy:
     src: "{{ source_key }}.pub"
     dest: "{{ dest_key }}.pub"
     mode: 0644
+  tags:
+    - dotfiles
+    - install
+
+- name: Copy ssh config
+  copy:
+    src: "{{ source_ssh_config }}"
+    dest: "{{ dest_ssh_config }}"
   tags:
     - dotfiles
     - install
