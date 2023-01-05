@@ -6,6 +6,14 @@
     - install
     - productivity
 
+- name: Delete content & directory
+  file:
+    state: absent
+    path: ~/.tmux/plugins/tpm
+  tags:
+    - install
+    - productivity
+
 - name: Install tpm
   shell: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   tags:
