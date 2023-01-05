@@ -32,9 +32,10 @@
       "dconf-editor",
       "moreutils",
       "fd-find",
-      "clangd"
-      "libsecret-1-0"
-      "gnome-keyring"
+      "clangd",
+      "libsecret-1-0",
+      "gnome-keyring",
+      "libfuse2"
     ]
   tags:
     - install
