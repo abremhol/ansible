@@ -30,4 +30,3 @@
     - import_tasks: tasks/browsers.yml
     - import_tasks: tasks/angular.yml
     - import_tasks: tasks/debuggers.yml
-    - import_tasks: tasks/openssl.yml
