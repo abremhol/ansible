@@ -25,14 +25,3 @@
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
   tags: *tags_for_zsh_tasks
-
-- name: Check if .zshrc exists
-  stat:
-    path: /home/adam/.zshrc
-  register: zshrc
-  tags: *tags_for_zsh_tasks
-
-- name: rm .zshrc to be able to stow new later
-  shell: rm /home/adam/.zshrc
-  tags: *tags_for_zsh_tasks
-  when: zshrc.stat.exists

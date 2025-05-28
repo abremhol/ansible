@@ -1,21 +1,21 @@
-- name: download dotnet tools
+- name: download dotnet install script
   shell: wget -P {{ lookup('env', 'HOME') }}/.local/bin https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
   tags:
   - install
   - dotnet
   - dotnet-tools
 
-- name: install latest dotnet
+- name: install latest LTS dotnet
   script:
-    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh"
+    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh --channel LTS"
   tags:
   - install
   - dotnet
   - dotnet-tools
 
-- name: install latest dotnet
+- name: install latest STS dotnet
   script:
-    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh -v 3.1.424"
+    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh --channel STS"
   tags:
   - install
   - dotnet
@@ -32,6 +32,45 @@
 
 - name: Install artifact credential provider
   shell: sh -c "$(curl -fsSL https://aka.ms/install-artifacts-credprovider.sh)"
+  tags:
+  - install
+  - dotnet
+  - nuget
+
+- name: Install EasyDotnet
+  shell: |
+    source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global EasyDotnet
+  args:
+    executable: /bin/zsh
+  tags:
+  - install
+  - dotnet
+  - nuget
+
+- name: Install dotnet outdated tool
+  shell: |
+    source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global dotnet-outdated-tool
+  args:
+    executable: /bin/zsh
+  tags:
+  - install
+  - dotnet
+  - nuget
+
+- name: Install dotnet ef tool
+  shell: |
+    source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global dotnet-ef
+  args:
+    executable: /bin/zsh
+  tags:
+  - install
+  - dotnet
+  - nuget
+
+- name: Install csharpier
+  shell: source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global csharpier
+  args:
+    executable: /bin/zsh
   tags:
   - install
   - dotnet

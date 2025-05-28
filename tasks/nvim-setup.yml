@@ -24,3 +24,50 @@
   tags:
     - install
     - neovim
+
+- name: LazySync
+  shell: nvim --headless "+Lazy! sync" +qa
+  tags:
+    - install
+    - neovim
+
+- name: Mason Install roslyn
+  shell: nvim --headless -c "MasonInstall roslyn" -c qall
+  tags:
+    - install
+    - neovim
+
+- name: Installing luarocks
+  apt: name=luarocks
+  become: true
+  tags:
+    - install
+    - luarocks
+    - neovim
+
+- name: Install tiktoken_core
+  shell: |
+    source {{ lookup('env', 'HOME') }}/.zshrc && luarocks install tiktoken_core --local
+  args:
+    executable: /bin/zsh
+  tags:
+    - install
+    - neovim
+  ignore_errors: true
+
+- name: Install Cascadia Code Mono Nerd Font
+  shell: |
+    wget -O /tmp/CascadiaCode.zip "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
+    unzip -o /tmp/CascadiaCode.zip -d ~/.local/share/fonts/
+    fc-cache -fv
+  tags:
+    - install
+    - fonts
+    - neovim
+
+- name: Installing lynx broswer for some link from nvim to work
+  apt: name=lynx
+  become: true
+  tags:
+    - install
+    - neovim

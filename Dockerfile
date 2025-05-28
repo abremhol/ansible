@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS base
+FROM ubuntu:noble AS base
 WORKDIR /usr/local/bin
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
@@ -12,8 +12,8 @@ RUN apt-get update && \
 
 FROM base AS adam
 ARG TAGS
-RUN addgroup --gid 1000 adam
-RUN adduser --gecos adam --uid 1000 --gid 1000 --disabled-password adam
+RUN addgroup --gid 1001 adam
+RUN adduser --gecos adam --uid 1001 --gid 1001 --disabled-password adam
 RUN adduser adam sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER adam

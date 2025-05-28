@@ -5,6 +5,18 @@
     - install
     - dotfiles
     - stow
+
+- name: Check if .zshrc exists
+  stat:
+    path: /home/adam/.zshrc
+  register: zshrc
+  tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
+
+- name: rm .zshrc to be able to stow new later
+  shell: rm /home/adam/.zshrc
+  tags: *tags_for_zsh_tasks
+  when: zshrc.stat.exists
+
 - name: Cloning .dotfiles
   ansible.builtin.git:
     repo: 'git@github.com:AdamBremholm/.dotfiles.git'
@@ -23,18 +35,3 @@
     - install
     - dotfiles
     - stow
-
-- name: Clone Packer 
-  ansible.builtin.git:
-    repo: 'https://github.com/wbthomason/packer.nvim'
-    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-  tags:
-    - install
-    - neovim
-
-- name: PackerSync
-  shell: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-  tags:
-    - install
-    - neovim
-  ignore_errors: true

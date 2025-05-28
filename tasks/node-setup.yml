@@ -37,7 +37,7 @@
 - name: Install correct version of Node
   environment:
     PATH: '/home/adam/.local/.npm-global/bin:{{ ansible_env.PATH }}'
-  shell: n 14
+  shell: n stable 
   become: true
   tags:
     - install
