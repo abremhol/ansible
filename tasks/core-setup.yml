@@ -35,7 +35,8 @@
       "clangd",
       "libsecret-1-0",
       "gnome-keyring",
-      "libfuse2"
+      "libfuse2",
+      "pipx"
     ]
   tags:
     - install

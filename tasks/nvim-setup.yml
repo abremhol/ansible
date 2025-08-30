@@ -71,3 +71,11 @@
   tags:
     - install
     - neovim
+
+- name: 
+  shell: "pipx install neovim-remote"
+  become: false 
+  tags:
+    - install
+    - neovim
+ 

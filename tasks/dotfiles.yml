@@ -8,18 +8,18 @@
 
 - name: Check if .zshrc exists
   stat:
-    path: /home/adam/.zshrc
+    path: /home/abremhol/.zshrc
   register: zshrc
   tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
 
 - name: rm .zshrc to be able to stow new later
-  shell: rm /home/adam/.zshrc
+  shell: rm /home/abremhol/.zshrc
   tags: *tags_for_zsh_tasks
   when: zshrc.stat.exists
 
 - name: Cloning .dotfiles
   ansible.builtin.git:
-    repo: 'git@github.com:AdamBremholm/.dotfiles.git'
+    repo: 'git@github.com:abremhol/.dotfiles.git'
     dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
     recursive: yes
     update: yes

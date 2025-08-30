@@ -26,7 +26,7 @@
 
 - name: Install N
   environment:
-    PATH: '/home/adam/.local/.npm-global/bin:{{ ansible_env.PATH }}'
+    PATH: '/home/abremhol/.local/.npm-global/bin:{{ ansible_env.PATH }}'
   npm:
     name: n
     global: yes
@@ -36,7 +36,7 @@
 
 - name: Install correct version of Node
   environment:
-    PATH: '/home/adam/.local/.npm-global/bin:{{ ansible_env.PATH }}'
+    PATH: '/home/abremhol/.local/.npm-global/bin:{{ ansible_env.PATH }}'
   shell: n stable 
   become: true
   tags:
