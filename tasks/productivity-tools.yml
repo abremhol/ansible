@@ -19,3 +19,12 @@
   tags:
     - install
     - productivity
+
+- name: Install CopyQ clipboard manager
+  become: true
+  apt:
+    name: copyq
+    state: present
+  tags:
+    - install
+    - productivity

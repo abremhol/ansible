@@ -8,12 +8,12 @@
 
 - name: Check if .zshrc exists
   stat:
-    path: /home/abremhol/.zshrc
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
   register: zshrc
   tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
 
 - name: rm .zshrc to be able to stow new later
-  shell: rm /home/abremhol/.zshrc
+  shell: "rm {{ lookup('env', 'HOME') }}/.zshrc"
   tags: *tags_for_zsh_tasks
   when: zshrc.stat.exists
 

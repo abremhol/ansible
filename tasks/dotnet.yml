@@ -39,7 +39,7 @@
 
 - name: Install EasyDotnet
   shell: |
-    source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global EasyDotnet
+    export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global EasyDotnet
   args:
     executable: /bin/zsh
   tags:
@@ -49,7 +49,7 @@
 
 - name: Install dotnet outdated tool
   shell: |
-    source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global dotnet-outdated-tool
+    export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global dotnet-outdated-tool
   args:
     executable: /bin/zsh
   tags:
@@ -59,7 +59,7 @@
 
 - name: Install dotnet ef tool
   shell: |
-    source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global dotnet-ef
+    export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global dotnet-ef
   args:
     executable: /bin/zsh
   tags:
@@ -68,7 +68,7 @@
   - nuget
 
 - name: Install csharpier
-  shell: source {{ lookup('env', 'HOME') }}/.zshrc && dotnet tool install --global csharpier
+  shell: export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global csharpier
   args:
     executable: /bin/zsh
   tags:

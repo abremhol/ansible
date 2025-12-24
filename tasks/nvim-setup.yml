@@ -31,12 +31,6 @@
     - install
     - neovim
 
-- name: Mason Install roslyn
-  shell: nvim --headless -c "MasonInstall roslyn" -c qall
-  tags:
-    - install
-    - neovim
-
 - name: Installing luarocks
   apt: name=luarocks
   become: true

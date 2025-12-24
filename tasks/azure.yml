@@ -1,21 +1,31 @@
-- name: Get Microsoft Azure function key
-  shell: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+- name: Ensure directory for APT repository keys exists
+  become: true
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
   tags:
   - install
   - azure
   - func
 
-- name: Move gpg to trusted
+- name: Download Microsoft Azure signing key
   become: true
-  shell: mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  get_url:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    dest: /etc/apt/keyrings/microsoft-azure.asc
+    mode: '0644'
   tags:
   - install
   - azure
   - func
 
-- name: Set up the APT source list before doing an APT update.
+- name: Add Microsoft Azure APT repository
   become: true
-  shell: sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-azure.asc] https://packages.microsoft.com/repos/microsoft-ubuntu-{{ ansible_distribution_release }}-prod {{ ansible_distribution_release }} main"
+    state: present
+    filename: microsoft-azure
   tags:
   - install
   - azure
@@ -31,9 +41,45 @@
     - azure
     - func
 
-- name: az cli
+- name: Ensure directory for APT repository keys exists (Azure CLI)
   become: true
-  shell: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  tags:
+  - install
+  - azure
+  - cli
+
+- name: Download Microsoft Azure CLI signing key
+  become: true
+  get_url:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    dest: /etc/apt/keyrings/microsoft-azure-cli.asc
+    mode: '0644'
+  tags:
+  - install
+  - azure
+  - cli
+
+- name: Add Azure CLI APT repository
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-azure-cli.asc] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main"
+    state: present
+    filename: azure-cli
+  tags:
+  - install
+  - azure
+  - cli
+
+- name: Install Azure CLI
+  become: true
+  apt:
+    name: azure-cli
+    state: present
+    update_cache: yes
   tags:
   - install
   - azure

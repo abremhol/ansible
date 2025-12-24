@@ -5,12 +5,12 @@
 
 - name: Change shell to zsh
   become: true
-  shell: chsh -s $(which zsh) abremhol
+  shell: chsh -s $(which zsh) {{ lookup('env', 'USER') }}
   tags: *tags_for_zsh_tasks
 
 - name: Check that the somefile.conf exists
   stat:
-    path: /home/abremhol/.oh-my-zsh
+    path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
   register: oh_my_stats
   tags: *tags_for_zsh_tasks
 
