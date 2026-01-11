@@ -6,15 +6,15 @@
     source_ssh_config: "./.ssh/config"
     dest_ssh_config: "{{ lookup('env', 'HOME') }}/.ssh/config"
   pre_tasks:
-  - name: Update Apt
-    become: true
-    apt:
-      force_apt_get: true
-      update_cache: true
-      state: present
-    tags:
-      - install
-      - core
+    - name: Update Apt
+      become: true
+      apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+      tags:
+        - install
+        - core
   tasks:
     - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/git-setup.yml
@@ -30,3 +30,4 @@
     - import_tasks: tasks/azure.yml
     - import_tasks: tasks/browsers.yml
     - import_tasks: tasks/angular.yml
+    - import_tasks: tasks/go.yml
