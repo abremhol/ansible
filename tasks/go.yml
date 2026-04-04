@@ -1,17 +1,7 @@
-- name: Add Go PPA
-  apt_repository:
-    repo: ppa:longsleep/golang-backports
-    state: present
-    tags:
-      - golang
-- name: Update apt cache
-  apt:
-    update_cache: yes
-    tags:
-      - golang
-- name: Install golang-go
-  apt:
-    name: golang-go
-    state: present
-    tags:
-      - golang
+- name: Install Go via mise
+  shell: ~/.local/bin/mise use --global go@latest
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
+  tags:
+    - install
+    - golang

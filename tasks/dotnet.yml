@@ -1,21 +1,7 @@
-- name: download dotnet install script
-  shell: wget -P {{ lookup('env', 'HOME') }}/.local/bin https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
-  tags:
-  - install
-  - dotnet
-  - dotnet-tools
-
-- name: install latest LTS dotnet
-  script:
-    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh --channel LTS"
-  tags:
-  - install
-  - dotnet
-  - dotnet-tools
-
-- name: install latest STS dotnet
-  script:
-    cmd: "{{ lookup('env', 'HOME') }}/.local/bin/dotnet-install.sh --channel STS"
+- name: Install .NET SDK via mise
+  shell: ~/.local/bin/mise use --global dotnet@latest
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
   - install
   - dotnet
@@ -38,39 +24,44 @@
   - nuget
 
 - name: Install EasyDotnet
-  shell: |
-    export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global EasyDotnet
+  shell: ~/.local/bin/mise exec -- dotnet tool install --global EasyDotnet
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   args:
-    executable: /bin/zsh
+    executable: /bin/bash
   tags:
   - install
   - dotnet
   - nuget
 
 - name: Install dotnet outdated tool
-  shell: |
-    export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global dotnet-outdated-tool
+  shell: ~/.local/bin/mise exec -- dotnet tool install --global dotnet-outdated-tool
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   args:
-    executable: /bin/zsh
+    executable: /bin/bash
   tags:
   - install
   - dotnet
   - nuget
 
 - name: Install dotnet ef tool
-  shell: |
-    export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global dotnet-ef
+  shell: ~/.local/bin/mise exec -- dotnet tool install --global dotnet-ef
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   args:
-    executable: /bin/zsh
+    executable: /bin/bash
   tags:
   - install
   - dotnet
   - nuget
 
 - name: Install csharpier
-  shell: export PATH="$HOME/.dotnet:$PATH" && dotnet tool install --global csharpier
+  shell: ~/.local/bin/mise exec -- dotnet tool install --global csharpier
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   args:
-    executable: /bin/zsh
+    executable: /bin/bash
   tags:
   - install
   - dotnet

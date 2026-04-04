@@ -1,44 +1,16 @@
-- name: Install nodejs and npm
-  become: true
-  apt:
-    name: ["nodejs", "npm"]
+- name: Install Node.js LTS via mise
+  shell: ~/.local/bin/mise use --global node@lts
   tags:
     - install
     - node
 
-- name: npmjs prefix
-  shell: mkdir -p ~/.local/.npm-global
-  tags:
-  - install
-  - node
-
-- name: add npmjs to path
-  shell: PATH=~/.local/.npm-global/bin:$PATH
-  tags:
-  - install
-  - node
-
-- name: npmjs global settings
-  shell: npm config set prefix '~/.local/.npm-global'
-  tags:
-  - install
-  - node
-
-- name: Install N
-  environment:
-    PATH: "{{ lookup('env', 'HOME') }}/.local/.npm-global/bin:{{ ansible_env.PATH }}"
-  npm:
-    name: n
-    global: yes
-  tags:
-    - install
-    - node
-
-- name: Install correct version of Node
-  environment:
-    PATH: "{{ lookup('env', 'HOME') }}/.local/.npm-global/bin:{{ ansible_env.PATH }}"
-  shell: n stable 
-  become: true
+- name: Setup npm global prefix
+  shell: |
+    mkdir -p ~/.local/.npm-global
+    eval "$(~/.local/bin/mise activate bash)"
+    npm config set prefix '~/.local/.npm-global'
+  args:
+    executable: /bin/bash
   tags:
     - install
     - node

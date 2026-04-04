@@ -1,0 +1,32 @@
+- name: Install mise dependencies
+  become: true
+  apt:
+    name: ["curl", "git", "build-essential"]
+  tags:
+    - install
+    - mise
+
+- name: Check if mise is installed
+  shell: command -v mise
+  register: mise_exists
+  failed_when: false
+  changed_when: false
+  tags:
+    - install
+    - mise
+
+- name: Install mise
+  shell: curl https://mise.run | sh
+  when: mise_exists.rc != 0
+  tags:
+    - install
+    - mise
+
+- name: Ensure mise is activated in zshrc
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.dotfiles/zsh/.zshrc"
+    line: 'eval "$(~/.local/bin/mise activate zsh)"'
+    create: yes
+  tags:
+    - install
+    - mise

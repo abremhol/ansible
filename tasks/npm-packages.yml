@@ -2,6 +2,9 @@
   npm:
     name: yarn
     global: yes
+    executable: ~/.local/bin/mise exec -- npm
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - install
     - node
@@ -9,6 +12,9 @@
   npm:
     name: eslint
     global: yes
+    executable: ~/.local/bin/mise exec -- npm
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - install
     - node
@@ -16,6 +22,9 @@
   npm:
     name: typescript-language-server
     global: yes
+    executable: ~/.local/bin/mise exec -- npm
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - install
     - node
@@ -23,6 +32,9 @@
   npm:
     name: typescript
     global: yes
+    executable: ~/.local/bin/mise exec -- npm
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - install
     - node
@@ -30,6 +42,9 @@
   npm:
     name: ts-node
     global: yes
+    executable: ~/.local/bin/mise exec -- npm
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - install
     - node
@@ -37,6 +52,9 @@
   npm:
     name: "@fsouza/prettierd"
     global: yes
+    executable: ~/.local/bin/mise exec -- npm
+  environment:
+    PATH: "{{ lookup('env', 'HOME') }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - install
     - node
