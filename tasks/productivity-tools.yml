@@ -1,7 +1,7 @@
 - name: Install packages
   become: true
   apt:
-    name: [ "tmux", "wireshark", "fzf", "tldr", "ripgrep"]
+    name: [ "tmux", "wireshark", "fzf", "{{ 'tealdeer' if ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('26.04', '>=') else 'tldr' }}", "ripgrep"]
   tags:
     - install
     - productivity

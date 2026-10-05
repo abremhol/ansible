@@ -22,8 +22,10 @@
 
 - name: Add Microsoft Azure APT repository
   become: true
+  vars:
+    azure_functions_distribution_release: "{{ 'noble' if ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'resolute' else ansible_distribution_release }}"
   apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-azure.asc] https://packages.microsoft.com/repos/microsoft-ubuntu-{{ ansible_distribution_release }}-prod {{ ansible_distribution_release }} main"
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-azure.asc] https://packages.microsoft.com/repos/microsoft-ubuntu-{{ azure_functions_distribution_release }}-prod {{ azure_functions_distribution_release }} main"
     state: present
     filename: microsoft-azure
   tags:
@@ -84,5 +86,4 @@
   - install
   - azure
   - cli
-
 
